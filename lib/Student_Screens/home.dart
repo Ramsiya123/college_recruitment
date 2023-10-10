@@ -1,10 +1,15 @@
+
+import 'package:college_recruitments/Student_Screens/events.dart';
+import 'package:college_recruitments/model/companies.dart';
+import 'package:college_recruitments/model/eventmodel.dart';
+
 import 'package:college_recruitments/wigetgallery/app_Large_text.dart';
 import 'package:college_recruitments/wigetgallery/app_small_text.dart';
 import 'package:college_recruitments/wigetgallery/custom_button.dart';
 import 'package:college_recruitments/wigetgallery/custom_color.dart';
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:google_fonts/google_fonts.dart';
+
+
 
 class S_HOME extends StatefulWidget {
   const S_HOME({super.key});
@@ -20,7 +25,8 @@ class _S_HOMEState extends State<S_HOME> {
       appBar: AppBar(
         backgroundColor: Colors.white,
         elevation: 0,
-        toolbarHeight: 150,
+        toolbarHeight: 120,
+        
         leading: Padding(
           padding: const EdgeInsets.only(left: 10),
           child: Container(
@@ -38,8 +44,8 @@ class _S_HOMEState extends State<S_HOME> {
         title: Large_Text(text: "Welcome",size: 20,),
         actions: [
           
-                      IconButton(onPressed: (){}, icon: Icon(Icons.bookmark_border_rounded,color: customblue,size: 35,)),
-                       IconButton(onPressed: (){}, icon: Icon(Icons.notifications_none,color: customblue,size: 35,)),
+                      IconButton(onPressed: (){}, icon: Icon(Icons.bookmark_border_rounded,color:Colors.blue,size: 35,)),
+                       IconButton(onPressed: (){}, icon: Icon(Icons.notifications_none,color: Colors.blue,size: 35,)),
                     
         ],
       ),
@@ -51,52 +57,54 @@ class _S_HOMEState extends State<S_HOME> {
           child: Column(
             children: [
                
-                  SizedBox(height: 20,),
-                   Padding(
-          padding: const EdgeInsets.all(16.0),
-          child: SizedBox(
-            width: 329,
-            height: 53,
-            child: TextField(
-              
-              decoration: InputDecoration(
-                hintText: 'Search',
-                prefixIcon: Icon(Icons.search),
-                suffixIcon: Image.asset(
-                            'images/userprofile.png', // Replace with your arrow image path
-                            width: 20,
-                            height: 20,
-                          ),
-              
-                 border: OutlineInputBorder(borderSide: BorderSide(width: 1,color: Colors.grey),
-                        borderRadius: BorderRadius.circular(30)),
-                        filled: true,
-                        fillColor: Colors.grey[200],
-                        
-              ),
-            ),
-          ),
+                
+                   ClipRRect(
+                       borderRadius: BorderRadius.circular(20),
+                     child: TextField(
+                       
+                       decoration: InputDecoration(
+                         border: InputBorder.none,
+                         filled: true,
+                         fillColor: Colors.grey[200],
+                         
+                         hintText: 'Search',
+                         prefixIcon: Icon(Icons.search),
+                         suffixIcon: Padding(
+                           padding: const EdgeInsets.all(8.0),
+                           child: Image.asset(
+                                       'images/pageline.png', // Replace with your arrow image path
+                                       width: 20,
+                                       height: 20,
+                                     ),
+                         ),
+                       
+                         // border: OutlineInputBorder(),
+                                
+                       ),
+                     ),
                    ),
                    SizedBox(height: 30,),
         Row(mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Large_Text(text: "Recomendation",size: 16 ),
-            TextButton(onPressed: (){}, child: Small_Text(text: "View more",size: 16,color: customblue,))
+            TextButton(onPressed: (){
+            Navigator.push(context, MaterialPageRoute(builder: (context)=>MyTabBarPage (),));
+            }, child: Small_Text(text: "View more",size: 16,color: customblue,))
           ],
         ),
-                   SizedBox(height: 20,),
+                   SizedBox(height: 10,),
                     Container(
-          width: 403,
+          width: MediaQuery.sizeOf(context).width,
           height: 220, // Set a specific height for the ListView
           child: ListView.builder(
             scrollDirection: Axis.horizontal,
-            itemCount: 4,
+            itemCount: company.length,
             itemBuilder: (context, index) {
           return Padding(
             padding:  EdgeInsets.only(left: 10.0, right: 10),
             child: Card(
               shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-              elevation: 10,
+              elevation: 0.9,
               child: Container(
                 width: 200,
                 height: 100,
@@ -110,19 +118,19 @@ class _S_HOMEState extends State<S_HOME> {
                       child: Row(
                         children: [
                           Image.asset(
-                            "images/facebook.png",
-                            width: 40,
-                            height: 40,
+                            company[index]["img"],
+                            width: 30,
+                            height: 30,
                           ),
                           SizedBox(width: 10,),
                           Column(
                             children: [
-                              Large_Text(text: "Facebook", size: 16,),
-                              Small_Text(text: "California, USA", size: 12,),
+                              Large_Text(text: company[index]['name'], size: 16,),
+                              Small_Text(text: company[index]['place'], size: 12,bold: FontWeight.w400,),
                             ],
                           ),
-                          SizedBox(width: 10,),
-                          Icon(Icons.chat_bubble_outline_sharp,color: Colors.blue,),
+                          SizedBox(width: 25,),
+                          Icon(Icons.bookmark_border_outlined,size: 25,color: Colors.blue,),
                         ],
                       ),
                     ),
@@ -146,7 +154,7 @@ class _S_HOMEState extends State<S_HOME> {
                     SizedBox(
                       width: 112,
                       height: 42,
-                      child: CustomElevatedButton(text: "Apply now", callback: (){},buttonColor: customblue,))
+                      child: CustomElevatedButton(text: "Apply now", callback: (){},buttonColor: Colors.blue,))
                   ],
                 ),
               ),
@@ -168,7 +176,7 @@ class _S_HOMEState extends State<S_HOME> {
           height: 256,
           child: ListView.builder(
             scrollDirection: Axis.horizontal,
-            itemCount: 4,
+            itemCount: events.length,
             itemBuilder: ((context, index) => Padding(
           padding: const EdgeInsets.all(8.0),
           child: Container(
@@ -187,11 +195,33 @@ class _S_HOMEState extends State<S_HOME> {
                       width: 220,
                       height: 131,
                       decoration: BoxDecoration(
-                        image: DecorationImage(image: AssetImage("images/violin.png"),
+                        image: DecorationImage(image: AssetImage(events[index]['img']),
                         fit: BoxFit.cover),
                          borderRadius: BorderRadius.circular(20),
                       ),
                     ),
+                    Positioned(
+                      left: 20,
+                      top: 20,
+                      child: Container(
+                        width:45 ,
+                        height: 45,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                      ),
+                    ),
+                     Positioned(
+                      left: 100,
+                      top: 20,
+                      child: Container(
+                        width:30,
+                        height: 30,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                      ),
+                    )
                     
                   ],
                 ),
