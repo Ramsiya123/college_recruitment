@@ -1,3 +1,4 @@
+import 'package:college_recruitments/Student_Screens/student_bottom.dart';
 import 'package:college_recruitments/Student_Screens/student_signup.dart';
 import 'package:college_recruitments/wigetgallery/app_Large_text.dart';
 import 'package:college_recruitments/wigetgallery/app_small_text.dart';
@@ -39,7 +40,7 @@ class _Student_loginState extends State<Student_login> {
                 SizedBox(height: 20,),
                 SizedBox(
                   width: 330,height: 43,
-                  child: CustomElevatedButton(text: "Login",buttonColor: customblue,callback: () =>Navigator.push(context,MaterialPageRoute(builder: (context)=> Sign_Up(),),))),
+                  child: CustomElevatedButton(text: "Login",buttonColor: customblue,callback: () =>Navigator.pushReplacement(context,MaterialPageRoute(builder: (context)=> ST_BOTTOM(),),))),
                 SizedBox(height: 20,),
                 Center(
                   child: Row(
@@ -53,7 +54,9 @@ class _Student_loginState extends State<Student_login> {
                       ),),
                       SizedBox(width: 5,),
                       InkWell(
-                        onTap: (){},
+                        onTap: (){
+                          Navigator.push(context,MaterialPageRoute(builder: (context)=> Sign_Up(),));
+                        },
                         child: Text("Sign up",style: TextStyle(
                           decoration: TextDecoration.underline, 
                           color: Colors.blue,

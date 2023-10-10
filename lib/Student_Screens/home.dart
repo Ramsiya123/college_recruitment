@@ -3,6 +3,8 @@ import 'package:college_recruitments/wigetgallery/app_small_text.dart';
 import 'package:college_recruitments/wigetgallery/custom_button.dart';
 import 'package:college_recruitments/wigetgallery/custom_color.dart';
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class S_HOME extends StatefulWidget {
   const S_HOME({super.key});
@@ -15,6 +17,32 @@ class _S_HOMEState extends State<S_HOME> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        backgroundColor: Colors.white,
+        elevation: 0,
+        toolbarHeight: 150,
+        leading: Padding(
+          padding: const EdgeInsets.only(left: 10),
+          child: Container(
+                          width: 51,
+                          height: 50,
+                          //margin: EdgeInsets.fromLTRB(20.55, 75, 0, 0),
+                          //padding: EdgeInsets.all(2.67),
+                          child: Image.asset(
+                            'images/userprofile.png', // Replace with your arrow image path
+                            width: 32.85,
+                            height: 32,
+                          ),
+                        ),
+        ), 
+        title: Large_Text(text: "Welcome",size: 20,),
+        actions: [
+          
+                      IconButton(onPressed: (){}, icon: Icon(Icons.bookmark_border_rounded,color: customblue,size: 35,)),
+                       IconButton(onPressed: (){}, icon: Icon(Icons.notifications_none,color: customblue,size: 35,)),
+                    
+        ],
+      ),
       backgroundColor: Colors.white,
       body: SingleChildScrollView(
         scrollDirection: Axis.vertical,
@@ -22,53 +50,30 @@ class _S_HOMEState extends State<S_HOME> {
           padding: const EdgeInsets.only(left:20.0,right: 20),
           child: Column(
             children: [
-                Row(
-                    children: [
-                      Container(
-                        width: 51,
-                        height: 50,
-                        margin: EdgeInsets.fromLTRB(20.55, 75, 0, 0),
-                        //padding: EdgeInsets.all(2.67),
-                        child: Image.asset(
-                          'images/userprofile.png', // Replace with your arrow image path
-                          width: 32.85,
-                          height: 32,
-                        ),
-                      ),
-                      Container(
-                        margin: EdgeInsets.fromLTRB(160, 95, 0, 0),
-                       // padding: EdgeInsets.all(2.67),
-                        child: Image.asset(
-                          'images/bluechat.png', // Replace with your arrow image path
-                          width: 29.85,
-                          height: 28,
-                        ),
-                      ),
-                      Container(
-                        margin: EdgeInsets.fromLTRB(21, 95, 0, 0),
-                       // padding: EdgeInsets.all(2.67),
-                        child: Image.asset(
-                          'images/bell.png', // Replace with your arrow image path
-                          width: 29.85,
-                          height: 28,
-                        ),
-                      ),
-                    ],
-                  ),
+               
                   SizedBox(height: 20,),
                    Padding(
           padding: const EdgeInsets.all(16.0),
-          child: TextField(
-            
-            decoration: InputDecoration(
-              hintText: 'Search',
-              prefixIcon: Icon(Icons.search),
-              suffixIcon:Icon(Icons.person),
-               border: OutlineInputBorder(borderSide: BorderSide(width: 1,color: Colors.grey),
-                      borderRadius: BorderRadius.circular(30)),
-                      filled: true,
-                      fillColor: Colors.grey[200],
-                      
+          child: SizedBox(
+            width: 329,
+            height: 53,
+            child: TextField(
+              
+              decoration: InputDecoration(
+                hintText: 'Search',
+                prefixIcon: Icon(Icons.search),
+                suffixIcon: Image.asset(
+                            'images/userprofile.png', // Replace with your arrow image path
+                            width: 20,
+                            height: 20,
+                          ),
+              
+                 border: OutlineInputBorder(borderSide: BorderSide(width: 1,color: Colors.grey),
+                        borderRadius: BorderRadius.circular(30)),
+                        filled: true,
+                        fillColor: Colors.grey[200],
+                        
+              ),
             ),
           ),
                    ),
