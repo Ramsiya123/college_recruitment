@@ -1,6 +1,7 @@
 import 'package:college_recruitments/Student_Screens/settings.dart';
 import 'package:college_recruitments/company_screens/company_profile.dart';
-import 'package:college_recruitments/company_screens/home.dart';
+
+import 'package:college_recruitments/company_screens/home2.dart';
 import 'package:college_recruitments/company_screens/student_list.dart';
 import 'package:college_recruitments/wigetgallery/custom_color.dart';
 import 'package:flutter/cupertino.dart';
@@ -19,7 +20,7 @@ class BOTTOM extends StatefulWidget {
 class _BOTTOMState extends State<BOTTOM> {
   int indexNum=0;
   List _navigation=[
-    HOME_COMPANY(),
+    HOME2(),
     St_List(),
     SETTINGS(),
     COMPANY_PROFILE (),

@@ -14,6 +14,9 @@ class Tell_Us extends StatefulWidget {
 }
 
 class _Tell_UsState extends State<Tell_Us> {
+   String? selectedGender;
+
+  List<String> genderOptions = ['Male', 'Female', 'Other'];
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -24,7 +27,7 @@ class _Tell_UsState extends State<Tell_Us> {
           child: Column(
             children: [
               SizedBox(
-                height: 40,
+                height: 70,
               ),
              
                 Row(
@@ -38,12 +41,36 @@ class _Tell_UsState extends State<Tell_Us> {
                    child: Row(
                                  children: [
                     Expanded(
-                      child: AppTextfield(text: "age",padding: 0,),
+                      child: AppTextfield(text: "Age",padding: 0,),
                     ),
                     SizedBox(width: 5,),
                      // Add some spacing between the text fields
                     Expanded(
-                      child: AppTextfield(text: "name",padding: 0,),
+
+
+                     child: DropdownButtonFormField(
+  value: selectedGender,
+  onChanged: (newValue) {
+    setState(() {
+      selectedGender = newValue;
+    });
+  },
+  items: genderOptions.map((gender) {
+    return DropdownMenuItem(
+      value: gender,
+      child: Text(gender),
+    );
+  }).toList(),
+  decoration: InputDecoration(
+    labelText: 'Gender',  // Set the label here
+    border: OutlineInputBorder(
+      borderRadius: BorderRadius.circular(10),
+    ),
+    hintText: "Select Gender",  // Set the hint text here
+  ),
+),
+
+                     
                     ),
                                  ],
                                ),
@@ -64,7 +91,7 @@ class _Tell_UsState extends State<Tell_Us> {
                 text: "Pincode",
               ),
               SizedBox(
-                height: 30,
+                height: 0,
               ),
               Padding(
                 padding: const EdgeInsets.only(top: 40.0),

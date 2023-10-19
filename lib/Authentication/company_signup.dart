@@ -1,8 +1,15 @@
 
-import 'package:college_recruitments/company_screens/bottom_nav_com.dart';
+import 'dart:convert';
+
+import 'package:college_recruitments/Authentication/student_login.dart';
+import 'package:college_recruitments/Student_Screens/otp_verification.dart';
+
+import 'package:college_recruitments/connect.dart';
+
 import 'package:college_recruitments/wigetgallery/custom_button.dart';
 import 'package:college_recruitments/wigetgallery/custom_color.dart';
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
 
 class COMPANY_Sign_Up extends StatefulWidget {
   const COMPANY_Sign_Up({super.key});
@@ -12,6 +19,43 @@ class COMPANY_Sign_Up extends StatefulWidget {
 }
 
 class _COMPANY_Sign_UpState extends State<COMPANY_Sign_Up> {
+  TextEditingController cnameController=TextEditingController();
+  TextEditingController emailController=TextEditingController();
+  TextEditingController passwordController=TextEditingController();
+  TextEditingController addressController=TextEditingController();
+
+
+  Future<void> register() async {
+    
+   final response = await http.post(Uri.parse('${Con.url}/register.php'), body: {
+  'cname': cnameController.text,
+  
+  'email': emailController.text,
+  'password': passwordController.text,
+  
+  'address': addressController.text,
+  'type':'company',
+});
+      print(response.body);
+
+
+    
+      if(jsonDecode(response.body)['result']=='success'){
+        ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text("registered successfully")));
+                    Navigator.push(context, MaterialPageRoute(builder: (context)=>OTP(),));
+
+
+      }
+      else{
+        ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text("not registered")));
+        Navigator.pop(context);
+
+      }
+      // Registration successful, handle the response.
+      // You can navigate to the OTP screen here if needed.
+      // Navigator.push(context, MaterialPageRoute(builder: (context) => OTP()));
+    } 
+
   bool is_checked=false;
   @override
   Widget build(BuildContext context) {
@@ -24,7 +68,8 @@ class _COMPANY_Sign_UpState extends State<COMPANY_Sign_Up> {
          SizedBox(height: 100,),
           Padding(
             padding: const EdgeInsets.only(top:20.0),
-            child: TextField(
+            child: TextFormField(
+              controller: cnameController,
                decoration: InputDecoration(hintStyle:TextStyle(
               fontFamily: "Poppins",
               fontSize: 12,
@@ -41,7 +86,8 @@ class _COMPANY_Sign_UpState extends State<COMPANY_Sign_Up> {
             ),
           ),Padding(
             padding: const EdgeInsets.only(top:20.0),
-            child: TextField(
+            child: TextFormField(
+              controller: emailController,
                decoration: InputDecoration(hintStyle:TextStyle(
               fontFamily: "Poppins",
               fontSize: 12,
@@ -59,7 +105,8 @@ class _COMPANY_Sign_UpState extends State<COMPANY_Sign_Up> {
           ),
           Padding(
             padding: const EdgeInsets.only(top:20.0),
-            child: TextField(
+            child: TextFormField(
+              controller: passwordController,
                decoration: InputDecoration(hintStyle:TextStyle(
               fontFamily: "Poppins",
               fontSize: 12,
@@ -77,7 +124,8 @@ class _COMPANY_Sign_UpState extends State<COMPANY_Sign_Up> {
           ),
           Padding(
             padding: const EdgeInsets.only(top:20.0),
-            child: TextField(
+            child: TextFormField(
+              controller: passwordController,
                decoration: InputDecoration(hintStyle:TextStyle(
               fontFamily: "Poppins",
               fontSize: 12,
@@ -96,6 +144,7 @@ class _COMPANY_Sign_UpState extends State<COMPANY_Sign_Up> {
           Padding(
             padding: const EdgeInsets.only(top:20.0),
             child: TextField(
+              controller: addressController,
               maxLines: 5,
                decoration: InputDecoration(hintStyle:TextStyle(
               fontFamily: "Poppins",
@@ -138,7 +187,7 @@ class _COMPANY_Sign_UpState extends State<COMPANY_Sign_Up> {
           SizedBox(height: 30,),
            SizedBox(width: 300,
                       child: CustomElevatedButton(text: "Create Account", callback: () { 
-                         Navigator.push(context,MaterialPageRoute(builder: (context)=>BOTTOM(),));
+                         Navigator.push(context,MaterialPageRoute(builder: (context)=>Student_login(type: 'company',),));
               //           if (is_checked) {
               //           Navigator.push(context,MaterialPageRoute(builder: (context)=>OTP(),));
               //   // Handle the case where the user agrees.
@@ -155,7 +204,9 @@ class _COMPANY_Sign_UpState extends State<COMPANY_Sign_Up> {
             children: [
                 Text("Already have an account? "),
                 InkWell(
-                        onTap: (){},
+                        onTap: (){
+                           Navigator.push(context,MaterialPageRoute(builder: (context)=>Student_login(type: 'company',),));
+                        },
                         child: Text(" Login",style: TextStyle(
                           decoration: TextDecoration.underline, 
                           color: Colors.blue,

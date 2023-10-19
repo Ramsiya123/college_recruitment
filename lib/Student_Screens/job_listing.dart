@@ -40,6 +40,8 @@ class _JOB_ListingState extends State<JOB_Listing> {
       "img":"images/twitterlogo.png",
       "name":"Twitter",
     },
+   
+
     
   ];
   @override
@@ -47,6 +49,7 @@ class _JOB_ListingState extends State<JOB_Listing> {
     return Scaffold(
       
       body: SingleChildScrollView(
+       // physics: NeverScrollableScrollPhysics(),
         child: Padding(
           padding: const EdgeInsets.only(left:30.0,right: 30),
           child: Column(
@@ -83,8 +86,10 @@ class _JOB_ListingState extends State<JOB_Listing> {
               Container(
                 padding: EdgeInsets.only(top: 50),
                 width:MediaQuery.of(context).size.width,
-                height: 800,
+                //height: 2000,
                 child: ListView.builder(
+                  shrinkWrap: true,
+                  physics: NeverScrollableScrollPhysics(),
                   itemCount: company.length, 
                   // Number of list tiles
                   itemBuilder: (context, index) {
@@ -130,6 +135,7 @@ class _JOB_ListingState extends State<JOB_Listing> {
                  
                 ),
               ),
+              SizedBox(height: 10,)
             ],
           ),
         ),

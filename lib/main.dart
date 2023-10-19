@@ -10,13 +10,8 @@
 
 
 
-import 'package:college_recruitments/Student_Screens/bottom_sheet2.dart';
-import 'package:college_recruitments/Student_Screens/home.dart';
-import 'package:college_recruitments/Student_Screens/start.dart';
-import 'package:college_recruitments/company_screens/post_job1.dart';
-import 'package:college_recruitments/company_screens/post_job2.dart';
-import 'package:college_recruitments/company_screens/post_job4.dart';
 
+import 'package:college_recruitments/Boarding/start.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -43,7 +38,8 @@ class _MyAppState extends State<MyApp> {
       ],
       child:  MaterialApp(
         debugShowCheckedModeBanner: false,
-        home://S_HOME(),
+        home://LOg (),
+        //S_HOME(),
         //BTM_SHEET(),
         //JOB2 (),
        // JOB4 (),
@@ -69,7 +65,7 @@ class _MyAppState extends State<MyApp> {
         //Tell_Us(),
         //Student_login(),
        // ST_Welcome(),//
-    Start(),
+   Start(),
         //Welcome_st(),
        //MyTabBarPage(),//BUG_REPORT(),
        // SETTINGS(),

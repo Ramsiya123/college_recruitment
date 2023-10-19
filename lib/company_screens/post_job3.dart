@@ -1,4 +1,6 @@
 
+import 'package:college_recruitments/company_screens/post_job2.dart';
+import 'package:college_recruitments/company_screens/post_job4.dart';
 import 'package:college_recruitments/wigetgallery/app_Large_text.dart';
 import 'package:college_recruitments/wigetgallery/custom_button.dart';
 import 'package:college_recruitments/wigetgallery/custom_color.dart';
@@ -30,6 +32,60 @@ class Tab_JOB extends StatefulWidget {
         padding: const EdgeInsets.symmetric(horizontal:20.0),
         child: Column(crossAxisAlignment: CrossAxisAlignment.start,
           children: [
+            SizedBox(height: 40,),
+               
+               InkWell(onTap: ()=>Navigator.push(context, MaterialPageRoute(builder: (context)=>JOB2(),)),
+                 child: Container(
+                   width: 27,
+                   height: 27,
+                   decoration: BoxDecoration(
+                     image: DecorationImage(image: AssetImage("images/arrow.png")),
+                   ),
+                 ),
+               ),
+               SizedBox(height: 20,),
+               
+                Large_Text(text: "Step 3/4",size: 20,),
+                SizedBox(height: 30,),
+               Row(children: [
+               
+                 Container(width:MediaQuery.of(context).size.width/5,
+                height:10 ,
+                decoration: BoxDecoration(
+                   border: Border.all(
+                    color: Colors.grey,
+                  ),
+                  borderRadius: BorderRadius.circular(20),
+                 // color: customviolet,
+                ),),
+                 SizedBox(width: 6,),
+                 Container(width:MediaQuery.of(context).size.width/5,
+                height:10 ,
+                decoration: BoxDecoration(
+                   border: Border.all(
+                    color: Colors.grey,
+                  ),
+                  borderRadius: BorderRadius.circular(20),
+                 // color: customviolet,
+                ),),
+                 SizedBox(width: 6,),
+                  Container(width:MediaQuery.of(context).size.width/5,
+                height:10 ,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(20),
+                  color: customviolet,
+                ),),
+                SizedBox(width: 6,),
+                 Container(width:MediaQuery.of(context).size.width/5,
+                height:10 ,
+                decoration: BoxDecoration(
+                  border: Border.all(
+                    color: Colors.grey,
+                  ),
+                  borderRadius: BorderRadius.circular(20),
+                  //color: customviolet,
+                ),),
+               ],),
             SizedBox(height: 20,),
             Large_Text(text: "Salary Rate",size: 20,),
             SizedBox(height: 20,),
@@ -70,6 +126,10 @@ class Tab_JOB extends StatefulWidget {
                   ),
                 ),
               ),
+              Padding(
+               padding: const EdgeInsets.only(left:100.0,right: 100,bottom: 80),
+               child: CustomElevatedButton(text: "Next", callback: (){Navigator.push(context, MaterialPageRoute(builder: (context)=>JOB4(),));}),
+             ),
         ],    
           ),
       ),
@@ -113,27 +173,26 @@ class _JOB3State extends State<JOB3> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor:Colors.white ,
-      body:Column(crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Large_Text(text: "Currency",size: 17,),
-           SizedBox(height: 10,),
-          AppTextfield(text: "\$",padding: 0,),
-          SizedBox(height: 15,),
-          Large_Text(text: "Amount",size: 17,),
-           SizedBox(height: 10,),
-          AppTextfield(text: "\$800-\$1600",padding: 0,),
-           SizedBox(height: 15,),
-           Large_Text(text: "Extras",size: 17,),
-            SizedBox(height: 10,),
-            AppTextfield(text: "Extrasand Additional peerks",maxlines: 4,padding: 0,)
-             ,SizedBox(height: 25,),
-             Padding(
-               padding: const EdgeInsets.only(left:100.0,right: 100),
-               child: CustomElevatedButton(text: "Next", callback: (){}),
-             ),
-      
-          SizedBox(height: 25,),
-        ],
+      body:Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Column(crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Large_Text(text: "Currency",size: 17,),
+             SizedBox(height: 10,),
+            AppTextfield(text: "\$",padding: 0,),
+            SizedBox(height: 15,),
+            Large_Text(text: "Amount",size: 17,),
+             SizedBox(height: 10,),
+            AppTextfield(text: "\$800-\$1600",padding: 0,),
+             SizedBox(height: 15,),
+             Large_Text(text: "Extras",size: 17,),
+              SizedBox(height: 10,),
+              AppTextfield(text: "Extrasand Additional peerks",maxlines: 4,padding: 0,),
+               //,SizedBox(height: 25,),
+              
+            //SizedBox(height: 25,),
+          ],
+        ),
       ) ,
     );
   }

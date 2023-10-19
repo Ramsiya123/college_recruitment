@@ -1,20 +1,33 @@
 //import 'package:college_recruitments/wigetgallery/app_small_text.dart';
-import 'dart:async';
+
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import '';
+
 
 class AppTextfield extends StatelessWidget {
   String text;
   double padding;
   int maxlines;
+  Color tcolor;
  final TextEditingController? controller;
   final TextInputType keyboard;
   final TextInputFormatter;
+ final String? Function(String?)? validator;
+ final bool obscuretext;
+ final Widget? suffixicon;
 
 
-  AppTextfield({super.key,required this.text,this.padding=10,this.maxlines=1,  this.controller, this.keyboard = TextInputType.name,this.TextInputFormatter,});
+  AppTextfield({super.key,
+  required this.text,
+  this.padding=10,
+  this.maxlines=1, 
+   this.controller,
+   this.tcolor=Colors.black,
+    this.keyboard = TextInputType.name,
+    this.TextInputFormatter,this.validator,
+    this.obscuretext=false, 
+    this.suffixicon });
 
   @override
   Widget build(BuildContext context) {
@@ -23,23 +36,31 @@ class AppTextfield extends StatelessWidget {
       child: TextFormField(maxLines: maxlines,
       controller: controller,
       keyboardType:keyboard ,
+      
+      validator: validator,
+      obscureText: obscuretext,
       inputFormatters: [
         
       ],
       
-        decoration: InputDecoration(hintStyle:TextStyle(
+        decoration: InputDecoration(
+          suffixIcon: suffixicon,
+          hintStyle:TextStyle(
           fontFamily: "Poppins",
           fontSize: 12,
           fontWeight: FontWeight.w500,
           
-          color: Colors.grey,
+          
+          color: tcolor,
         ) ,
                 
                 hintText: text,
                 
                 border: OutlineInputBorder(borderSide: BorderSide(width: 5),
                   borderRadius: BorderRadius.circular(10)),
-       ), ),
+       ), 
+       
+       ),
     );
   }
 }

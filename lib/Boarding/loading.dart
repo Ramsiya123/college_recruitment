@@ -1,10 +1,11 @@
-import 'package:college_recruitments/Student_Screens/student_Welcome.dart';
-import 'package:college_recruitments/company_screens/welcome_page.dart';
+
+import 'package:college_recruitments/Authentication/student_Welcome.dart';
 import 'package:college_recruitments/wigetgallery/custom_button.dart';
 import 'package:college_recruitments/wigetgallery/custom_color.dart';
 import 'package:flutter/material.dart';
 
 class ST_Welcome extends StatefulWidget {
+  
   const ST_Welcome({super.key});
 
   @override
@@ -39,12 +40,12 @@ class _ST_WelcomeState extends State<ST_Welcome> {
                   children: [
                     SizedBox(width: 30,),
                      SizedBox(width: 159,height: 43,
-                     child: CustomElevatedButton(text: "Student login",width:100 , callback: ()=>Navigator.push(context, MaterialPageRoute(builder: (context)=>Welcome_st(),)),buttonColor: customblue,)
+                     child: CustomElevatedButton(text: "Student login",width:100 , callback: ()=>Navigator.push(context, MaterialPageRoute(builder: (context)=>Welcome_st(type: 'student',),)),buttonColor: customblue,)
                         
                      ),
                      SizedBox(width: 30,),
                      SizedBox(width: 144,height: 43,
-                     child: CustomElevatedButton(text: "Company login",width:100 , callback: ()=>Navigator.push(context, MaterialPageRoute(builder: (context)=>Welcome_com(),)),buttonColor: customblue,)
+                     child: CustomElevatedButton(text: "Company login",width:100 , callback: ()=>Navigator.push(context, MaterialPageRoute(builder: (context)=>Welcome_st(type: 'company',),)),buttonColor: customblue,)
                         
                      ),
                   ],
