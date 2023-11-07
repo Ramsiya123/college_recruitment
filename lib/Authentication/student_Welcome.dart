@@ -2,7 +2,7 @@
 // import 'package:college_recruitments/wigetgallery/custom_button.dart';
 
 
-import 'package:college_recruitments/Authentication/student_login.dart';
+import 'package:college_recruitments/Authentication/login.dart';
 import 'package:college_recruitments/wigetgallery/app_Large_text.dart';
 import 'package:college_recruitments/wigetgallery/app_small_text.dart';
 import 'package:college_recruitments/wigetgallery/custom_button.dart';

@@ -7,18 +7,6 @@ import 'package:college_recruitments/wigetgallery/custom_color.dart';
 import 'package:college_recruitments/wigetgallery/custom_textfield.dart';
 import 'package:flutter/material.dart';
 
-void main() {
-  runApp(MyApp());
-}
-
-class MyApp extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      home: JOB_1(),
-    );
-  }
-}
 
 class JOB_1 extends StatefulWidget {
   const JOB_1({Key? key}) : super(key: key);
@@ -28,6 +16,20 @@ class JOB_1 extends StatefulWidget {
 }
 
 class _JOB_1State extends State<JOB_1> {
+  TextEditingController positioncontroller=TextEditingController();
+  TextEditingController categorycontroller=TextEditingController();
+  TextEditingController desccontroller=TextEditingController();
+   TextEditingController locationcontroller=TextEditingController();
+String? selectedValue; // Initial value for the dropdown
+  List<String> options = ['Option 1', 'Option 2', 'Option 3', 'Option 4'];
+String? _isselected;
+
+List<String> _vehicle = [
+  '2 whealer',
+  '3 whealer',
+  '4 whealer',
+  // Add more as needed
+];
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -98,17 +100,69 @@ class _JOB_1State extends State<JOB_1> {
                  SizedBox(height: 20,),
                 Small_Text(text: "Position",size: 14,),
                  SizedBox(height: 10,),
-                AppTextfield(text: "Select Position",padding: 0,),
+                AppTextfield(text: "Select Position",padding: 0,tcolor: Colors.grey,
+                controller: positioncontroller,),
                  SizedBox(height: 20,),
-                Small_Text(text: "Coategory",size: 14,),
+                Small_Text(text: "Category",size: 14,),
                  SizedBox(height: 10,),
-                AppTextfield(text: "Select Category",padding: 0,),
+               DropdownButtonFormField<String>(
+                  validator: (value) {
+                    if (value == null) {
+                      return 'Please select a vehicle type';
+                    }
+                    return null; // Return null if the selection is valid
+                  },
+                  borderRadius: BorderRadius.circular(20),
+                  value: selectedValue,
+                  items: options.map((String _VehicleType) {
+                    return DropdownMenuItem<String>(
+                      value: _VehicleType,
+                      child: Text(_VehicleType),
+                    );
+                  }).toList(),
+                  onChanged: (String? newValue1) {
+                    setState(() {
+                      selectedValue = newValue1!;
+                    });
+                  },
+                  decoration: InputDecoration(
+                    // Optional: Add decoration for the form field
+                    // labelText: 'Select a student', // Label text
+                    hintText: "Select Category",
+                      hintStyle:TextStyle(
+          fontFamily: "Poppins",
+          fontSize: 12,
+          fontWeight: FontWeight.w500,
+          
+          
+          color:Colors.black,
+        ) ,
+                    border: OutlineInputBorder(
+                        borderRadius:
+                            BorderRadius.circular(10)), // Add a border
+                  ),
+                ),
+
                  SizedBox(height: 20,),
-                Small_Text(text: "Description(Optional)"),
+                Small_Text(text: "Description(Optional)",size: 14,),
                  SizedBox(height: 10,),
-                AppTextfield(text: "Description",maxlines: 5,padding: 0,),
-                 SizedBox(height: 30,),
-                Center(child: CustomElevatedButton(text: "Next", callback: (){Navigator.push(context, MaterialPageRoute(builder: (context)=>JOB2(),));},buttonColor: customviolet,))
+                AppTextfield(text: "Description",maxlines: 5,padding: 0,tcolor: Colors.grey,
+                controller: desccontroller,),
+                 SizedBox(height: 10,),
+                  Small_Text(text: "Job Location",size: 14,),
+                  SizedBox(height: 20,),
+                  AppTextfield(text: "Enter the location",padding: 0,tcolor: Colors.grey,controller: locationcontroller,),
+                  SizedBox(height: 20,),
+
+
+                Center(child: CustomElevatedButton(text: "Next", callback: (){Navigator.push(context, MaterialPageRoute(builder: (context)=>JOB2(
+                  position: positioncontroller,
+                  category: selectedValue.toString(),
+                  description: desccontroller,
+                  location:locationcontroller,
+
+                ),));},buttonColor: customviolet,)),
+                SizedBox(height: 20,),
                 
               ],
             ),

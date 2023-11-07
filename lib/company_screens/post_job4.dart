@@ -7,7 +7,28 @@ import 'package:college_recruitments/wigetgallery/custom_color.dart';
 import 'package:flutter/material.dart';
 
 class JOB4 extends StatefulWidget {
-  const JOB4({super.key});
+
+   var position;
+  var category;
+  var description;
+  var jobtype;
+  
+  var urgent;
+  var salarytype;
+  var amount;
+  var extra;
+   JOB4({super.key,
+   required this.position,
+   required this.category,
+    required this.description,
+   required this.jobtype,
+
+   required this.urgent,
+   required this.salarytype,
+   required this.amount,
+   required this.extra, required deadline, required location,
+
+   });
 
   @override
   State<JOB4> createState() => _JOB4State();
@@ -25,7 +46,7 @@ class _JOB4State extends State<JOB4> {
             children: [
                 SizedBox(height: 40,),
                  
-                 InkWell(onTap: () => Navigator.push(context, MaterialPageRoute(builder: (context)=>Tab_JOB(),)),
+                 InkWell(onTap: () => Navigator.pop(context),
                    child: Container(
                      width: 27,
                      height: 27,
@@ -106,7 +127,7 @@ class _JOB4State extends State<JOB4> {
               ),
               SizedBox(height: 20,),
               Row(
-                children: [
+                children: [ 
                   Icon(Icons.circle,color: Colors.green,size: 10,),
                   SizedBox(width: 10,),
                   Small_Text(text: "12th Pass and Above",size: 12,),

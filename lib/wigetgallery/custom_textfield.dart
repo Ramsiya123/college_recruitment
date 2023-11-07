@@ -16,6 +16,7 @@ class AppTextfield extends StatelessWidget {
  final String? Function(String?)? validator;
  final bool obscuretext;
  final Widget? suffixicon;
+  final onTap;
 
 
   AppTextfield({super.key,
@@ -27,7 +28,9 @@ class AppTextfield extends StatelessWidget {
     this.keyboard = TextInputType.name,
     this.TextInputFormatter,this.validator,
     this.obscuretext=false, 
-    this.suffixicon });
+    this.onTap=null,
+    this.suffixicon
+     });
 
   @override
   Widget build(BuildContext context) {
@@ -59,6 +62,7 @@ class AppTextfield extends StatelessWidget {
                 border: OutlineInputBorder(borderSide: BorderSide(width: 5),
                   borderRadius: BorderRadius.circular(10)),
        ), 
+       onTap: onTap,
        
        ),
     );

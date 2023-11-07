@@ -34,17 +34,18 @@ class _ST_WelcomeState extends State<ST_Welcome> {
               ),
             ),
             Padding(
-              padding: const EdgeInsets.only(top: 200),
+              padding: const EdgeInsets.only(top: 200,left: 20,right: 20),
               child: Center(
                 child: Row(
                   children: [
-                    SizedBox(width: 30,),
-                     SizedBox(width: 159,height: 43,
+                   // SizedBox(width: 30,),
+                     SizedBox(width:MediaQuery.sizeOf(context).width*.42,
+                     height: 43,
                      child: CustomElevatedButton(text: "Student login",width:100 , callback: ()=>Navigator.push(context, MaterialPageRoute(builder: (context)=>Welcome_st(type: 'student',),)),buttonColor: customblue,)
                         
                      ),
-                     SizedBox(width: 30,),
-                     SizedBox(width: 144,height: 43,
+                     SizedBox(width: 20,),
+                     SizedBox(width:MediaQuery.sizeOf(context).width*.42,height: 43,
                      child: CustomElevatedButton(text: "Company login",width:100 , callback: ()=>Navigator.push(context, MaterialPageRoute(builder: (context)=>Welcome_st(type: 'company',),)),buttonColor: customblue,)
                         
                      ),

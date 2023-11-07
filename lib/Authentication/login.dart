@@ -3,9 +3,10 @@ import 'dart:convert';
 
 import 'package:college_recruitments/Authentication/company_signup.dart';
 import 'package:college_recruitments/Authentication/student_signup.dart';
+import 'package:college_recruitments/Shared_preference/sp-login.dart';
 import 'package:college_recruitments/Student_Screens/student_bottom.dart';
-
 import 'package:college_recruitments/company_screens/bottom_nav_com.dart';
+
 
 import 'package:college_recruitments/connect.dart';
 import 'package:college_recruitments/wigetgallery/app_Large_text.dart';
@@ -30,46 +31,76 @@ class _Student_loginState extends State<Student_login> {
   final _formfield=GlobalKey<FormState>();
   bool passwordsee=false;
   //final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
-  TextEditingController usernameController = TextEditingController();
+  TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
-  
-  Future<void> register() async {
-    final response = await http.post(Uri.parse('${Con.url}/login.php'), body: {
-      "username": usernameController.text,
-      "password": passwordController.text,
-    });
+  Future<void> login() async {
+  final response = await http.post(Uri.parse('${Con.url}/login.php'), body: {
+    "email": emailController.text,
+    "password": passwordController.text,
+    "type": widget.type,
+  });
 
+  if (response.statusCode == 200) {
     var data = json.decode(response.body);
-    if (data == "Error") {
+    if (data['result'] == 'success') {
+     var userid=data['user_data'];
+     print('.............$userid...........');
+     SharedPreferencesHelper.saveData(userid).then((value) => print('sp saved')).catchError((e){print('sp not saved');});
+    Fluttertoast.showToast(
+  msg: "Login Success",
+  toastLength: Toast.LENGTH_SHORT,
+  gravity: ToastGravity.BOTTOM,
+  backgroundColor: Colors.blue, // Change the background color here
+  textColor: Colors.white,
+  fontSize: 16.0,
+);
+switch(widget.type){
+  case 'student':
+
+      // Successful login; navigate to the main screen.
+      Navigator.pushReplacement(
+          context, MaterialPageRoute(builder: (context) => ST_BOTTOM()));
+          break;
+           case 'company':
+
+      // Successful login; navigate to the main screen.
+      Navigator.pushReplacement(
+          context, MaterialPageRoute(builder: (context) => BOTTOM()));
+          break;
+}
+    } else {
+      // Invalid email or password; show an error message to the user.
+      // ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+      //   content: Text("Login Failed. Please check your credentials."),
+      // ));
       Fluttertoast.showToast(
-          msg: "This user already exist",
+          msg: "Login failed",
           toastLength: Toast.LENGTH_SHORT,
           gravity: ToastGravity.CENTER,
           timeInSecForIosWeb: 1,
           backgroundColor: Colors.red,
           textColor: Colors.white,
           fontSize: 16.0);
-    } else {
-      Fluttertoast.showToast(
-          msg: "Registration successfully",
+    }
+  } else {
+    // Handle HTTP request errors (e.g., network issues).
+    // ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+    //   content: Text("Error: ${response.statusCode}"),
+    // ));
+     Fluttertoast.showToast(
+          msg: "Error: ${response.statusCode}",
           toastLength: Toast.LENGTH_SHORT,
           gravity: ToastGravity.CENTER,
           timeInSecForIosWeb: 1,
-          backgroundColor: Color.fromARGB(255, 78, 44, 42),
+          backgroundColor: Colors.red,
           textColor: Colors.white,
           fontSize: 16.0);
-    }
-
-    if (response.statusCode == 200) {
-      // Login was successful. You can add your logic here.
-      // For example, you can navigate to the home screen.
-      Navigator.pushReplacement(
-          context, MaterialPageRoute(builder: (context) => ST_BOTTOM()));
-    } else {
-      // Login failed. Handle the error, e.g., show an error message.
-      print("Login failed");
-    }
+         
+        
   }
+}
+
+  
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -99,8 +130,8 @@ class _Student_loginState extends State<Student_login> {
                     ),
                   ),
                   AppTextfield(
-                    text: "Username",
-                    controller: usernameController,
+                    text: "Email",
+                    controller: emailController,
                      validator: (value){
                     if(value!.isEmpty){
                       return 'enter email';
@@ -110,8 +141,8 @@ class _Student_loginState extends State<Student_login> {
                       return 'Enter valid email';
                     }
                      },
-              
-              
+                              
+                              
                   ),
                   AppTextfield(
                     text: "Password",
@@ -140,7 +171,7 @@ class _Student_loginState extends State<Student_login> {
                   ),
                   widget.type == 'student'
                       ? SizedBox(
-                          width: 330,
+                          width:MediaQuery.sizeOf(context).width*.82,
                           height: 43,
                           child: CustomElevatedButton(
                               text: "Login",
@@ -149,28 +180,30 @@ class _Student_loginState extends State<Student_login> {
                                 if(_formfield.currentState!.validate()){
                                   print('success');
                                 
-                                register();
+                                login();
                                
-                                Navigator.pushReplacement(
-                                    context,
-                                    MaterialPageRoute(
-                                      builder: (context) => ST_BOTTOM(),
-                                    ));
+                               
                                 }
                               }),
                         )
                       : SizedBox(
-                          width: 330,
+                          width:MediaQuery.sizeOf(context).width*.82,
                           height: 43,
                           child: CustomElevatedButton(
                               text: "Login",
                               buttonColor: customviolet,
-                              callback: () => Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                      builder: (context) => BOTTOM(),
-                                    ),
-                                  ))),
+                              callback: (){
+                                if(_formfield.currentState!.validate()){
+                                  print('success');
+                                
+                                login();
+                               
+                                
+                                }
+                              }
+                                  )
+                                  ),
+                                  
                   SizedBox(
                     height: 20,
                   ),

@@ -1,7 +1,7 @@
 import 'dart:convert';
 
-import 'package:college_recruitments/Authentication/student_login.dart';
-import 'package:college_recruitments/Student_Screens/otp_verification.dart';
+import 'package:college_recruitments/Authentication/login.dart';
+
 
 import 'package:college_recruitments/connect.dart';
 import 'package:flutter/material.dart';
@@ -16,8 +16,10 @@ class Sign_Up extends StatefulWidget {
   @override
   State<Sign_Up> createState() => _Sign_UpState();
 }
-var selectedDate;
+var selectedDate=DateTime(DateTime.now().year-10);
 class _Sign_UpState extends State<Sign_Up> {
+  RegExp indianPhoneNumberRegExp = RegExp(r'^[6-9]\d{9}$');
+
    final _formfield=GlobalKey<FormState>();
   TextEditingController fnameController = TextEditingController();
   TextEditingController lnameController = TextEditingController();
@@ -30,14 +32,17 @@ class _Sign_UpState extends State<Sign_Up> {
     final DateTime? picked = await showDatePicker(
       context: context,
       initialDate: selectedDate,
-      initialDatePickerMode: DatePickerMode.day,
-      firstDate: DateTime(2015),
-      lastDate: DateTime(2101),
+      // initialDatePickerMode: DatePickerMode.day,
+      firstDate: DateTime(1990),
+      lastDate: DateTime(2017),
     );
-    if (picked != null) {
+    if (picked != null && picked!= selectedDate) {
+      print('picked');
+
       setState(() {
-        selectedDate = picked;
-        dobController.text = DateFormat.yMd().format(selectedDate);
+        //selectedDate = picked;
+         String formatedDate=DateFormat.yMd().format(picked);
+        dobController.text =formatedDate;
       });
     }
   }
@@ -51,18 +56,21 @@ class _Sign_UpState extends State<Sign_Up> {
   'lname': lnameController.text,
   'email': emailController.text,
   'password': passwordController.text,
-  'dob': dobController.text,
+  'dob': dobController.text.toString(),
   'phone': phoneController.text,
   'type':'student',
 };
-   final response = await http.post(Uri.parse('${Con.url}/register.php'), body:data);
+
+print(data);
+   final response = await http.post(Uri.parse('${Con.url}/register_st.php'), body:data);
       print(response.body);
 
 
     
       if(jsonDecode(response.body)['result']=='success'){
         ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text("registered successfully")));
-                    Navigator.push(context, MaterialPageRoute(builder: (context)=>OTP(),));
+                    // Navigator.push(context, MaterialPageRoute(builder: (context)=>OTP(),));
+                     Navigator.push(context, MaterialPageRoute(builder: (context)=>Student_login(type: 'student',),));
 
 
       }
@@ -79,6 +87,7 @@ class _Sign_UpState extends State<Sign_Up> {
 
   @override
   Widget build(BuildContext context) {
+    
     return Scaffold(
       backgroundColor: Colors.white,
       body: Padding(
@@ -199,7 +208,7 @@ class _Sign_UpState extends State<Sign_Up> {
               Padding(
                 padding: const EdgeInsets.only(top:20.0),
                 child: TextFormField(
-                  controller: passwordController,
+                //  controller: passwordController,
                    decoration: InputDecoration(hintStyle:TextStyle(
                   fontFamily: "Poppins",
                   fontSize: 12,
@@ -212,14 +221,25 @@ class _Sign_UpState extends State<Sign_Up> {
                         
                         border: OutlineInputBorder(borderSide: BorderSide(width: 5),
                           borderRadius: BorderRadius.circular(10)),
-                       ), 
+                       ),
+                        validator: (value) {
+      if (value!.isEmpty) {
+        return 'Please confirm your password';
+      }
+      if (value != passwordController.text) {
+        return 'Passwords do not match';
+      }
+      return null;
+    }, 
                 ),
               ),
               Padding(
                 padding: const EdgeInsets.only(top:20.0),
                 child: TextFormField(
+                  
                   onTap: () {
                     selectDate(context);
+                    
                   },
                   controller: dobController,
                    decoration: InputDecoration(hintStyle:TextStyle(
@@ -257,6 +277,16 @@ class _Sign_UpState extends State<Sign_Up> {
                         border: OutlineInputBorder(borderSide: BorderSide(width: 5),
                           borderRadius: BorderRadius.circular(10)),
                        ), 
+                         
+      validator: (value) {
+      if (value!.isEmpty) {
+        return 'Please enter your phone number';
+      }
+      if (!indianPhoneNumberRegExp.hasMatch(value)) {
+        return 'Invalid Indian phone number';
+      }
+      return null;
+    },
                 ),
               ),
                 // ... Your existing form fields ...
@@ -287,20 +317,27 @@ class _Sign_UpState extends State<Sign_Up> {
                       ),
                     ],
                   ),
+                  
                 ),
                 SizedBox(height: 30),
                 SizedBox(
                   width: 300,
                   child: ElevatedButton(
                     onPressed: () {
+                     if(_formfield.currentState!.validate()) {
+                      print("success.................");
                       if (isChecked) {
-                        register(); // Call the register function.
+                        print('inside login button');
+                        register(
+                          
+                        );
+                       //  Navigator.push(context, MaterialPageRoute(builder: (context)=>Student_login(type: 'student',),)); // Call the register function.
                       } else {
                         // Handle the case where the user doesn't agree.
                         print('User does not agree!');
                       }
-          Navigator.push(context, MaterialPageRoute(builder: (context)=>Student_login(type: 'student',),));
-                    },
+         
+                    };},
                     child: Text("Proceed"),
                   ),
                 ),
