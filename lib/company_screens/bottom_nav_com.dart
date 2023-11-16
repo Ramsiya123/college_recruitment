@@ -1,3 +1,4 @@
+import 'package:college_recruitments/Shared_preference/sp-login.dart';
 import 'package:college_recruitments/Student_Screens/settings.dart';
 import 'package:college_recruitments/company_screens/company_profile.dart';
 
@@ -11,6 +12,7 @@ import 'package:flutter/material.dart';
 
 
 class BOTTOM extends StatefulWidget {
+  
   const BOTTOM({super.key});
 
   @override
@@ -18,21 +20,46 @@ class BOTTOM extends StatefulWidget {
 }
 
 class _BOTTOMState extends State<BOTTOM> {
+  var lid;
   int indexNum=0;
-  List _navigation=[
-    HOME2(),
+  
+   @override
+  void initState() {
+    bool containdata;
+    // TODO: implement initState
+    super.initState();
+ SharedPreferencesHelper.containsData().then((value) {
+  setState(() {
+    containdata=value;
+    print("-----------------------$containdata------------------------");
+  });
+ });
+
+    SharedPreferencesHelper.getSavedData().then((value){
+      setState(() {
+        lid=value;
+        print("---------------------$lid------inside-----------");
+      });
+    }
+   );
+    print("---------------------$lid---outside--------------");
+  }
+  
+  @override
+  Widget build(BuildContext context) {
+   
+  List<Widget> navigation=[
+    HOME2(lid: lid,),
     St_List(),
-    SETTINGS(),
+    SETTINGS(lid: lid),
     COMPANY_PROFILE (),
 
 
   ]
   ;
-  @override
-  Widget build(BuildContext context) {
     return  Scaffold(
       
-      body:_navigation.elementAt(indexNum),
+      body:navigation.elementAt(indexNum),
 
       bottomNavigationBar: BottomNavigationBar(
         selectedItemColor: customblue,

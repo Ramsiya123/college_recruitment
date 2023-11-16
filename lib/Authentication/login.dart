@@ -45,7 +45,7 @@ class _Student_loginState extends State<Student_login> {
     if (data['result'] == 'success') {
      var userid=data['user_data'];
      print('.............$userid...........');
-     SharedPreferencesHelper.saveData(userid).then((value) => print('sp saved')).catchError((e){print('sp not saved');});
+     SharedPreferencesHelper.saveData(userid).then((value) => print('-------------sp saved-----------------------------')).catchError((e){print('------------sp not saved------------------------------------------');});
     Fluttertoast.showToast(
   msg: "Login Success",
   toastLength: Toast.LENGTH_SHORT,

@@ -16,7 +16,7 @@ class NotificationPage extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               InkWell(
-                onTap: (){Navigator.push(context, MaterialPageRoute(builder: (context)=>SETTINGS(),));},
+               // onTap: (){Navigator.push(context, MaterialPageRoute(builder: (context)=>SETTINGS(),));},
                 child: Container(
                   margin: EdgeInsets.fromLTRB(0.0, 37, 0, 0),
                   padding: EdgeInsets.all(2.67),

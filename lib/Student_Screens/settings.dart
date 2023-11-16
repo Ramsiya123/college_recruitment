@@ -4,13 +4,31 @@ import 'package:college_recruitments/wigetgallery/app_small_text.dart';
 import 'package:flutter/material.dart';
 
 class SETTINGS extends StatefulWidget {
-  const SETTINGS({super.key});
+  var lid;
+  SETTINGS({super.key,required this.lid});
 
   @override
   State<SETTINGS> createState() => _SETTINGSState();
 }
 
 class _SETTINGSState extends State<SETTINGS> {
+   Future <void> _refresh() async{
+    await Future.delayed(Duration(seconds: 1));
+    setState(() {
+      
+    });
+  }
+@override
+  void initState() {
+
+    // TODO: implement initState
+    super.initState();
+    print('inside setting screen  ${widget.lid}');
+    setState(() {
+      
+    });
+    //_refresh();
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(

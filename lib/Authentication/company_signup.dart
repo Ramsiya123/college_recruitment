@@ -41,7 +41,7 @@ class _COMPANY_Sign_UpState extends State<COMPANY_Sign_Up> {
     final response = await http.post(
       Uri.parse('${Con.url}/register_cm.php'),
       body: data);
-
+print(data);
     print(response.body);
 
     if (response.statusCode == 200) {

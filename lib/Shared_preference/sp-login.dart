@@ -17,6 +17,9 @@ class SharedPreferencesHelper {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     await prefs.remove(loginIdKey);
   }
+
+  static Future<bool> containsData() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    return prefs.containsKey(loginIdKey);
+  }
 }
-
-

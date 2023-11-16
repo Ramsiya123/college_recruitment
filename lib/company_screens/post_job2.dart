@@ -4,7 +4,7 @@ import 'package:college_recruitments/wigetgallery/app_Large_text.dart';
 import 'package:college_recruitments/wigetgallery/app_small_text.dart';
 import 'package:college_recruitments/wigetgallery/custom_button.dart';
 import 'package:college_recruitments/wigetgallery/custom_color.dart';
-import 'package:college_recruitments/wigetgallery/custom_textfield.dart';
+
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
@@ -25,6 +25,7 @@ class JOB2 extends StatefulWidget {
 }
 
 class _JOB2State extends State<JOB2> {
+  final _formKey=GlobalKey<FormState>();
   var dateController = TextEditingController();
   var selectedDate=DateTime.now();
 
@@ -147,11 +148,13 @@ Future<void> selectDate(BuildContext context) async {
                 title: Text('Part Time'),
                 value: 1,
                 groupValue: selectedRadio,
+                
                 onChanged: (value) {
                   setSelectedRadio(1);
                 },
               ),
               RadioListTile(
+                
                 activeColor: customviolet,
                 title: Text('Full Time'),
                 value: 2,
@@ -161,28 +164,41 @@ Future<void> selectDate(BuildContext context) async {
                 },
               ),
               SizedBox(height: 20),
+                Small_Text(text: "Dead Line",size: 14,),
               Padding(
                 padding: const EdgeInsets.only(top:20.0),
-                child: TextFormField(
-                  
-                  onTap: () {
-                    selectDate(context);
+                child: Form(
+                  key: _formKey,
+                  child: TextFormField(
                     
-                  },
-                  controller: dateController,
-                   decoration: InputDecoration(hintStyle:TextStyle(
-                  fontFamily: "Poppins",
-                  fontSize: 12,
-                  fontWeight: FontWeight.w500,
-                  
-                  color: Colors.black,
-                ) ,
-                        
-                        hintText: "Dead line:DD/MM/YY",
-                        
-                        border: OutlineInputBorder(borderSide: BorderSide(width: 5),
-                          borderRadius: BorderRadius.circular(10)),
-                       ), 
+                    onTap: () {
+                      selectDate(context);
+                      
+                    },
+                    controller: dateController,
+                     decoration: InputDecoration(hintStyle:TextStyle(
+                    fontFamily: "Poppins",
+                    fontSize: 12,
+                    fontWeight: FontWeight.w500,
+                    
+                    color: Colors.black,
+                  ) ,
+                          
+                          hintText: "DD/MM/YY",
+                          
+                          border: OutlineInputBorder(borderSide: BorderSide(width: 5),
+                            borderRadius: BorderRadius.circular(10)),
+                         ), 
+                         
+                             validator: (value){
+                          if (value!.isEmpty) {
+                  return 'The field is not empty';
+                }
+                return null; // Return null if the input is valid
+              
+                      
+                         },
+                  ),
                 ),
               ),
               SizedBox(height: 20),
@@ -206,7 +222,20 @@ Future<void> selectDate(BuildContext context) async {
                 child: CustomElevatedButton(
                   text: "Next",
                   callback: () {
-                    Navigator.push(
+                    // ignore: unnecessary_null_comparison
+                    if (selectedRadio == null) {
+                  // Display a validation message
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    SnackBar(
+                      content: Text('Please select a job type'),
+                    ),
+                  );
+                } else {
+                  // Form is valid, handle the submission
+                  // Your form submission logic here
+                     if(_formKey.currentState!.validate()){
+                                  print('success');
+                                  Navigator.push(
                       context,
                       MaterialPageRoute(
                         builder: (context) => Tab_JOB(
@@ -216,13 +245,18 @@ Future<void> selectDate(BuildContext context) async {
                           jobtype: selectedRadio.toString(),
                           //workdays: selectedDayIndex.toString(),
                           urgent: is_on,
-                          deadline:dateController,
+                          deadline:dateController.text,
                           location: widget.location,
 
                         ),
                       ),
                     );
-                  },
+                  };
+                  };
+
+
+                }
+                    
                 ),
               ),
               SizedBox(height: 90),

@@ -22,7 +22,7 @@ class _ST_BOTTOMState extends State<ST_BOTTOM> {
   List _navigation = [
     S_HOME(),
     JOB_Listing(),
-    SETTINGS(),
+  // SETTINGS(),
     ST_PROFILE(),
   ];
 
